@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv6 Share by Crawl Epoch</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: transparent;
+        color: #152a47
+    }
+
+    .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 1rem
+    }
+
+    .chart-box {
+        position: relative;
+        width: 100%;
+        height: 340px
+    }
+
+    @media (max-width: 600px) {
+        .chart-box {
+            height: 260px
+        }
+    }
+
+    @media (min-width: 900px) {
+        .chart-box {
+            height: 400px
+        }
+    }
+
+    .caption {
+        margin-top: .75rem;
+        font-size: .82rem;
+        color: #64748b;
+        line-height: 1.45
+    }
+
+    .caption a {
+        color: #37587e;
+        text-decoration: underline
+    }
+
+    .caption .note {
+        display: inline-block;
+        margin-top: .35rem;
+        font-family: monospace;
+        font-size: .78rem;
+        color: #37587e;
+        background: #f0f5fb;
+        border-left: 2px solid #37587e;
+        padding: .15rem .45rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="chart-box">
+            <canvas id="chart"></canvas>
+        </div>
+        <p class="caption">
+            IPv6 share of fetched URLs (IPv6 / (IPv4 + IPv6)) per crawl epoch, from Nutch job logs.
+            Zeros for CC-MAIN-2024-10 through 2024-46 reflect absence of <code>ip_address_version</code> counters before Nutch instrumentation was added.
+            <br>
+            <span class="note">CC-MAIN-2026-12: OkHttp Happy Eyeballs enabled &mdash; IPv6-capable hosts now preferentially reached over IPv6</span>
+        </p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script>
+    var EPOCHS = [
+        { label: "2024-51", ipv4: 3057743967, ipv6: 7585839,   share: 0.2475 },
+        { label: "2025-05", ipv4: 3491098648, ipv6: 8898076,   share: 0.2542 },
+        { label: "2025-08", ipv4: 3128130576, ipv6: 10219007,  share: 0.3256 },
+        { label: "2025-13", ipv4: 3203129525, ipv6: 10634370,  share: 0.3309 },
+        { label: "2025-18", ipv4: 3214992172, ipv6: 10848876,  share: 0.3363 },
+        { label: "2025-21", ipv4: 2891292644, ipv6: 13084143,  share: 0.4505 },
+        { label: "2025-26", ipv4: 2794169955, ipv6: 15221146,  share: 0.5418 },
+        { label: "2025-30", ipv4: 2817216601, ipv6: 17876010,  share: 0.6305 },
+        { label: "2025-33", ipv4: 2823211683, ipv6: 18026023,  share: 0.6344 },
+        { label: "2025-38", ipv4: 2781126217, ipv6: 17076506,  share: 0.6103 },
+        { label: "2025-43", ipv4: 3005102966, ipv6: 18102799,  share: 0.5988 },
+        { label: "2025-47", ipv4: 2662146105, ipv6: 15934055,  share: 0.5950 },
+        { label: "2025-51", ipv4: 2524019254, ipv6: 13171938,  share: 0.5192 },
+        { label: "2026-04", ipv4: 2697415922, ipv6: 14964642,  share: 0.5517 },
+        { label: "2026-08", ipv4: 2532138475, ipv6: 13639533,  share: 0.5358 },
+        { label: "2026-12", ipv4: 1604109903, ipv6: 734918582, share: 31.4198 }
+    ];
+
+    var SPIKE_IDX = 15;
+
+    function barColor(d, i) {
+        if (i === SPIKE_IDX) return "rgb(21, 42, 71)";       // deep navy for the spike
+        var t = (d.share - 0.24) / (0.64 - 0.24);           // normalise over baseline range
+        t = Math.max(0, Math.min(1, t));
+        var r = Math.round(150 - (150 - 55)  * t);
+        var g = Math.round(180 - (180 - 94)  * t);
+        var b = Math.round(210 - (210 - 135) * t);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    new Chart(document.getElementById("chart").getContext("2d"), {
+        type: "bar",
+        data: {
+            labels: EPOCHS.map(function(e) { return e.label; }),
+            datasets: [{
+                data: EPOCHS.map(function(e) { return e.share; }),
+                backgroundColor: EPOCHS.map(function(e, i) { return barColor(e, i); }),
+                borderRadius: 2,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: function(c) {
+                            return "CC-MAIN-" + EPOCHS[c[0].dataIndex].label;
+                        },
+                        label: function(c) {
+                            var d = EPOCHS[c.dataIndex];
+                            return [
+                                "  IPv6 share: " + d.share.toFixed(4) + "%",
+                                "  IPv6 URLs:  " + d.ipv6.toLocaleString(),
+                                "  IPv4 URLs:  " + d.ipv4.toLocaleString()
+                            ];
+                        }
+                    },
+                    backgroundColor: "#fff",
+                    borderColor: "#e0e0e0",
+                    borderWidth: 1,
+                    titleColor: "#152a47",
+                    bodyColor: "#666",
+                    padding: 10,
+                    titleFont: { weight: "600", size: 12 },
+                    bodyFont: { family: "monospace", size: 11 }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        color: "#64748b",
+                        font: { size: 11 },
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    border: { color: "#e0e0e0" }
+                },
+                y: {
+                    type: "logarithmic",
+                    min: 0.2,
+                    grid: { color: "#e2e8f0", drawBorder: false },
+                    border: { display: false },
+                    ticks: {
+                        color: "#64748b",
+                        font: { family: "monospace", size: 11 },
+                        callback: function(v) {
+                            var nice = [0.2, 0.3, 0.5, 1, 2, 5, 10, 20, 50];
+                            return nice.includes(v) ? v + "%" : null;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    </script>
+</body>
+</html>
