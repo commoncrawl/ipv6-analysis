@@ -966,19 +966,7 @@ new Chart(ctx, {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: true,
-        labels: {
-          generateLabels: () => [{
-            text: 'Plateau region',
-            fillStyle: 'rgba(67,67,127,0.12)',
-            strokeStyle: '#43437f',
-            lineWidth: 2,
-            fontColor: '#43437f',
-          }],
-          color: '#43437f',
-          font: { family: 'Libre Franklin', size: 11 },
-          boxWidth: 12,
-        }
+        display: false,
       },
       tooltip: {
         callbacks: {
@@ -1109,17 +1097,20 @@ new Chart(plateauCtx, {
     plugins: {
       legend: {
         display: true,
+        position: 'top',
+        align: 'end',
         labels: {
-          generateLabels: () => [{
-            text: 'Plateau region',
-            fillStyle: 'rgba(67,67,127,0.12)',
-            strokeStyle: '#43437f',
-            lineWidth: 2,
-            fontColor: '#43437f',
-          }],
+          filter: (item) => item.text === 'Plateau region',
           color: '#43437f',
-          font: { family: 'Libre Franklin', size: 11 },
-          boxWidth: 12,
+          usePointStyle: true,
+          pointStyle: 'rectRounded',
+          boxWidth: 10,
+          boxHeight: 10,
+          padding: 14,
+          font: {
+            family: 'Libre Franklin',
+            size: 11
+          }
         }
       },
       tooltip: {
