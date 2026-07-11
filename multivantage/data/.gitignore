@@ -1,0 +1,4 @@
+results-*.jsonl
+results-*.jsonl.meta.json
+hosts-*.tsv
+smoke/
