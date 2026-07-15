@@ -73,10 +73,20 @@ Top-level fields, one JSON object per line:
   (nyc3); the median maximum inter-vantage gap is 13.3 h (p99
   27.68 h). Timestamps reflect pass 2 of the combined passes.
   Apparent inter-vantage disagreement can be temporal rather than
-  topological. TODO: skew framing including the
-  lower-gap-for-partial finding.
-* **Geo-DNS divergence.** TODO: exact definition of
-  "divergent AAAA sets" as used in the summaries, and its caveat.
+  topological. Notably, partially reachable hosts have a LOWER median
+  gap (11.33 h) than the full population (13.3 h), so skew is not
+  manufacturing partial reachability. As a further bound, on the
+  43,976 hosts common to both runs' top 100k, run A (synchronised
+  launches) and run B (skewed windows) agree on every consensus
+  category within a fraction of a percent.
+* **Geo-DNS divergence.** `aaaa_sets_distinct` is computed only for
+  hosts where ALL five vantages observed AAAA records; hosts where
+  only some vantages saw AAAA, arguably the most divergent cases, are
+  excluded from the divergence count by construction. Additionally,
+  ca-tunnel resolved via Google Public DNS rather than an in-region
+  resolver (the DigitalOcean vantages used regional DO resolvers), so
+  its contribution to AAAA-set divergence reflects Google's
+  geo-mapping rather than in-region resolution.
 * **Run A ams3 single-pass.** Transient-flip filtering could not be
   applied to ams3 in run A; treat its run A per-vantage numbers
   accordingly.
@@ -86,5 +96,8 @@ Top-level fields, one JSON object per line:
 
 ## Reproducing the aggregate numbers
 
-TODO: pointer to the analysis tooling in multivantage/ and
-invocation notes.
+Aggregate numbers were produced by the merge and analysis tooling
+in `multivantage/`: merge_mv.py (merging and summaries),
+overlap_check_v4.py (run A vs run B comparison). Published files were
+sanitised with sanitise_names.py; label mapping is supplied at
+invocation and is not part of the repository.
