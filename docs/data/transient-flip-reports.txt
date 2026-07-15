@@ -1,0 +1,30 @@
+nyc3:
+  hosts in both passes:        1,000,000
+  hosts in one pass only:             0
+  AAAA presence flips:            5,373
+  v6 transient (flipped once):    2,024  (up 1,079 / down 945)
+  v6 failed both passes:         25,209
+sfo3:
+  hosts in both passes:        1,000,000
+  hosts in one pass only:             0
+  AAAA presence flips:            4,897
+  v6 transient (flipped once):    1,694  (up 920 / down 774)
+  v6 failed both passes:         24,648
+ams3:
+  hosts in both passes:        1,000,000
+  hosts in one pass only:             0
+  AAAA presence flips:            4,921
+  v6 transient (flipped once):    2,246  (up 1,316 / down 930)
+  v6 failed both passes:         24,274
+sgp1:
+  hosts in both passes:        1,000,000
+  hosts in one pass only:             0
+  AAAA presence flips:            5,422
+  v6 transient (flipped once):    2,163  (up 1,054 / down 1,109)
+  v6 failed both passes:         27,101
+ca-tunnel:
+  hosts in both passes:        1,000,000
+  hosts in one pass only:             0
+  AAAA presence flips:            2,896
+  v6 transient (flipped once):    1,684  (up 974 / down 710)
+  v6 failed both passes:         22,583

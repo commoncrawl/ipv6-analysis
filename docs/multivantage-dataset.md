@@ -2,7 +2,6 @@
 
 Work in progress, July 2026. Extends the March 2026 single-vantage
 IPv6 study in this repository from one vantage point to five.
-Presented at the MAPRG plenary, IETF 126 Vienna.
 
 ## Vantage points
 
@@ -90,9 +89,6 @@ Top-level fields, one JSON object per line:
 * **Run A ams3 single-pass.** Transient-flip filtering could not be
   applied to ams3 in run A; treat its run A per-vantage numbers
   accordingly.
-* **Sanitisation.** Vantage machine identifiers were replaced with
-  the public labels above throughout these files. No addresses or
-  measurement values were altered.
 
 ## Reproducing the aggregate numbers
 

@@ -1,0 +1,39 @@
+Loaded 1,000,000 hosts across 5 vantages: ams3, sfo3, nyc3, ca-tunnel, sgp1
+
+============================================================
+Per-vantage headline numbers
+============================================================
+    ams3: AAAA  34.5%   v6-reachable  32.1%   median v6 connect 2.1 ms
+    sfo3: AAAA  34.6%   v6-reachable  32.1%   median v6 connect 3.7 ms
+   nyc3: AAAA  34.6%   v6-reachable  32.1%   median v6 connect 2.5 ms
+        ca-tunnel: AAAA  34.3%   v6-reachable  32.1%   median v6 connect 3.6 ms
+  sgp1: AAAA  34.7%   v6-reachable  32.0%   median v6 connect 3.5 ms
+
+============================================================
+Per-vantage observation windows
+============================================================
+    ams3: 2026-07-13T21:50:08+00:00 -> 2026-07-14T00:54:03+00:00 (3.07 h)
+    sfo3: 2026-07-13T21:50:11+00:00 -> 2026-07-14T12:17:42+00:00 (14.46 h)
+   nyc3: 2026-07-13T21:50:11+00:00 -> 2026-07-15T04:13:55+00:00 (30.4 h)
+        ca-tunnel: 2026-07-13T21:50:15+00:00 -> 2026-07-14T00:16:26+00:00 (2.44 h)
+  sgp1: 2026-07-13T21:50:16+00:00 -> 2026-07-14T15:25:41+00:00 (17.59 h)
+
+============================================================
+Consensus across 5 vantages (1,000,000 hosts complete)
+============================================================
+  Hosts with AAAA anywhere:         357,282
+  Reachable from all vantages:      316,779
+  Partially reachable:                5,530
+  Broken v6 everywhere (v4 alive):   10,082
+  Dead hosts (v4 dead too):          24,891
+  Geo-DNS divergent AAAA sets:      112,248
+
+============================================================
+Temporal skew: max inter-vantage observation gap (hours)
+============================================================
+  All complete hosts    : median 13.3  p90 24.76  p99 27.68  max 27.96  (n=1,000,000)
+  Partially reachable   : median 11.33  p90 23.92  p99 27.66  max 27.95  (n=5,530)
+  Geo-DNS divergent     : median 13.08  p90 24.94  p99 27.67  max 27.96  (n=112,248)
+
+Merged data: data/publish/merged-1m.jsonl
+Summary:     data/publish/summary-1m.json

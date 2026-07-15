@@ -1,0 +1,478 @@
+{
+  "vantages": [
+    "ams3",
+    "sfo3",
+    "nyc3",
+    "ca-tunnel",
+    "sgp1"
+  ],
+  "hosts": 1000000,
+  "per_vantage": {
+    "ams3": {
+      "hosts_probed": 1000000,
+      "has_aaaa": 345100,
+      "has_aaaa_pct": 34.5,
+      "v6_reachable": 320826,
+      "v6_reachable_pct": 32.1,
+      "median_v6_connect_ms": 2.1,
+      "median_v4_connect_ms": 2.0,
+      "window_start_utc": "2026-07-13T21:50:08+00:00",
+      "window_end_utc": "2026-07-14T00:54:03+00:00",
+      "window_hours": 3.07
+    },
+    "sfo3": {
+      "hosts_probed": 1000000,
+      "has_aaaa": 345527,
+      "has_aaaa_pct": 34.6,
+      "v6_reachable": 320879,
+      "v6_reachable_pct": 32.1,
+      "median_v6_connect_ms": 3.7,
+      "median_v4_connect_ms": 3.4,
+      "window_start_utc": "2026-07-13T21:50:11+00:00",
+      "window_end_utc": "2026-07-14T12:17:42+00:00",
+      "window_hours": 14.46
+    },
+    "nyc3": {
+      "hosts_probed": 1000000,
+      "has_aaaa": 345898,
+      "has_aaaa_pct": 34.6,
+      "v6_reachable": 320689,
+      "v6_reachable_pct": 32.1,
+      "median_v6_connect_ms": 2.5,
+      "median_v4_connect_ms": 2.5,
+      "window_start_utc": "2026-07-13T21:50:11+00:00",
+      "window_end_utc": "2026-07-15T04:13:55+00:00",
+      "window_hours": 30.4
+    },
+    "ca-tunnel": {
+      "hosts_probed": 1000000,
+      "has_aaaa": 343173,
+      "has_aaaa_pct": 34.3,
+      "v6_reachable": 320590,
+      "v6_reachable_pct": 32.1,
+      "median_v6_connect_ms": 3.6,
+      "median_v4_connect_ms": 1.8,
+      "window_start_utc": "2026-07-13T21:50:15+00:00",
+      "window_end_utc": "2026-07-14T00:16:26+00:00",
+      "window_hours": 2.44
+    },
+    "sgp1": {
+      "hosts_probed": 1000000,
+      "has_aaaa": 346727,
+      "has_aaaa_pct": 34.7,
+      "v6_reachable": 319626,
+      "v6_reachable_pct": 32.0,
+      "median_v6_connect_ms": 3.5,
+      "median_v4_connect_ms": 3.2,
+      "window_start_utc": "2026-07-13T21:50:16+00:00",
+      "window_end_utc": "2026-07-14T15:25:41+00:00",
+      "window_hours": 17.59
+    }
+  },
+  "hosts_probed_from_all_vantages": 1000000,
+  "consensus": {
+    "hosts_with_aaaa_anywhere": 357282,
+    "aaaa_presence_distribution": {
+      "aaaa_at_0_of_5": 642718,
+      "aaaa_at_1_of_5": 11429,
+      "aaaa_at_2_of_5": 2968,
+      "aaaa_at_3_of_5": 1521,
+      "aaaa_at_4_of_5": 2323,
+      "aaaa_at_5_of_5": 339041
+    },
+    "v6_reachability_distribution": {
+      "reachable_from_0_of_5": 34973,
+      "reachable_from_1_of_5": 485,
+      "reachable_from_2_of_5": 590,
+      "reachable_from_3_of_5": 770,
+      "reachable_from_4_of_5": 3685,
+      "reachable_from_5_of_5": 316779
+    },
+    "reachable_everywhere": 316779,
+    "partially_reachable": 5530,
+    "unreachable_everywhere_but_v4_alive": 10082,
+    "unreachable_everywhere_and_v4_dead": 24891,
+    "geo_dns_divergent": 112248
+  },
+  "temporal_skew": {
+    "note": "Gaps computed from per-record ts across vantages, in hours. Inputs were pass-combined; the surviving ts is from pass 2 (verified), so gaps reflect pass-2 observation times.",
+    "max_inter_vantage_gap": {
+      "all_complete_hosts": {
+        "hosts": 1000000,
+        "median_h": 13.3,
+        "p90_h": 24.76,
+        "p99_h": 27.68,
+        "max_h": 27.96
+      },
+      "partially_reachable": {
+        "hosts": 5530,
+        "median_h": 11.33,
+        "p90_h": 23.92,
+        "p99_h": 27.66,
+        "max_h": 27.95
+      },
+      "geo_dns_divergent": {
+        "hosts": 112248,
+        "median_h": 13.08,
+        "p90_h": 24.94,
+        "p99_h": 27.67,
+        "max_h": 27.96
+      }
+    }
+  },
+  "examples": {
+    "partially_reachable": [
+      {
+        "rank": 96,
+        "host": "www.ncbi.nlm.nih.gov",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "ca-tunnel",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 259,
+        "host": "pbs.twimg.com",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 392,
+        "host": "mp.weixin.qq.com",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "ca-tunnel",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 394,
+        "host": "www.gnu.org",
+        "reachable_from": [
+          "ca-tunnel"
+        ]
+      },
+      {
+        "rank": 590,
+        "host": "www.fedex.com",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "ca-tunnel",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 623,
+        "host": "www.php.net",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "nyc3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 632,
+        "host": "static.parastorage.com",
+        "reachable_from": [
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 667,
+        "host": "www.ups.com",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 750,
+        "host": "www.iubenda.com",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "nyc3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 820,
+        "host": "www.foxnews.com",
+        "reachable_from": [
+          "ams3",
+          "ca-tunnel",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 824,
+        "host": "zonely.gen.tr",
+        "reachable_from": [
+          "sfo3",
+          "nyc3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 961,
+        "host": "siteassets.parastorage.com",
+        "reachable_from": [
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 1170,
+        "host": "plausible.io",
+        "reachable_from": [
+          "ams3",
+          "sfo3",
+          "nyc3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 1341,
+        "host": "www.foxbusiness.com",
+        "reachable_from": [
+          "ams3",
+          "sgp1"
+        ]
+      },
+      {
+        "rank": 1667,
+        "host": "112journaal.nl",
+        "reachable_from": [
+          "ams3",
+          "ca-tunnel"
+        ]
+      }
+    ],
+    "broken_v6_everywhere": [
+      {
+        "rank": 980,
+        "host": "www.thelancet.com"
+      },
+      {
+        "rank": 1028,
+        "host": "www.bptk.de"
+      },
+      {
+        "rank": 2194,
+        "host": "www.cell.com"
+      },
+      {
+        "rank": 2408,
+        "host": "gallica.bnf.fr"
+      },
+      {
+        "rank": 2670,
+        "host": "travel.state.gov"
+      },
+      {
+        "rank": 2874,
+        "host": "www.chase.com"
+      },
+      {
+        "rank": 2951,
+        "host": "www.enisa.europa.eu"
+      },
+      {
+        "rank": 2982,
+        "host": "www.ncei.noaa.gov"
+      },
+      {
+        "rank": 3057,
+        "host": "www.fontsquirrel.com"
+      },
+      {
+        "rank": 3147,
+        "host": "www.flipkart.com"
+      },
+      {
+        "rank": 3345,
+        "host": "www.royalmail.com"
+      },
+      {
+        "rank": 3453,
+        "host": "plot.ly"
+      },
+      {
+        "rank": 3668,
+        "host": "linkinghub.elsevier.com"
+      },
+      {
+        "rank": 3986,
+        "host": "www.rt.com"
+      },
+      {
+        "rank": 4086,
+        "host": "quizlet.com"
+      }
+    ],
+    "geo_dns_divergent": [
+      {
+        "rank": 1,
+        "host": "www.facebook.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 2,
+        "host": "fonts.googleapis.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 4,
+        "host": "www.googletagmanager.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 5,
+        "host": "www.instagram.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 6,
+        "host": "www.youtube.com",
+        "distinct_aaaa_sets": 4
+      },
+      {
+        "rank": 9,
+        "host": "fonts.gstatic.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 11,
+        "host": "ajax.googleapis.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 12,
+        "host": "youtu.be",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 14,
+        "host": "en.wikipedia.org",
+        "distinct_aaaa_sets": 4
+      },
+      {
+        "rank": 16,
+        "host": "support.google.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 18,
+        "host": "docs.google.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 19,
+        "host": "play.google.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 20,
+        "host": "instagram.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 22,
+        "host": "maps.google.com",
+        "distinct_aaaa_sets": 5
+      },
+      {
+        "rank": 23,
+        "host": "policies.google.com",
+        "distinct_aaaa_sets": 5
+      }
+    ]
+  },
+  "pairwise_reachability_disagreement": {
+    "ams3|sfo3": {
+      "hosts": 348676,
+      "disagree": 1361,
+      "disagree_pct": 0.39
+    },
+    "ams3|nyc3": {
+      "hosts": 349078,
+      "disagree": 1999,
+      "disagree_pct": 0.57
+    },
+    "ams3|ca-tunnel": {
+      "hosts": 348426,
+      "disagree": 2234,
+      "disagree_pct": 0.64
+    },
+    "ams3|sgp1": {
+      "hosts": 349879,
+      "disagree": 2750,
+      "disagree_pct": 0.79
+    },
+    "sfo3|nyc3": {
+      "hosts": 348855,
+      "disagree": 1534,
+      "disagree_pct": 0.44
+    },
+    "sfo3|ca-tunnel": {
+      "hosts": 348692,
+      "disagree": 2051,
+      "disagree_pct": 0.59
+    },
+    "sfo3|sgp1": {
+      "hosts": 350135,
+      "disagree": 2929,
+      "disagree_pct": 0.84
+    },
+    "nyc3|ca-tunnel": {
+      "hosts": 349128,
+      "disagree": 2655,
+      "disagree_pct": 0.76
+    },
+    "nyc3|sgp1": {
+      "hosts": 350725,
+      "disagree": 3417,
+      "disagree_pct": 0.97
+    },
+    "ca-tunnel|sgp1": {
+      "hosts": 350227,
+      "disagree": 3910,
+      "disagree_pct": 1.12
+    }
+  },
+  "v6_vs_v4_latency": {
+    "ams3": {
+      "dual_stack_hosts": 320257,
+      "median_v6_minus_v4_connect_ms": 0.2,
+      "v6_faster_pct": 39.5
+    },
+    "sfo3": {
+      "dual_stack_hosts": 320385,
+      "median_v6_minus_v4_connect_ms": 0.4,
+      "v6_faster_pct": 41.8
+    },
+    "nyc3": {
+      "dual_stack_hosts": 320167,
+      "median_v6_minus_v4_connect_ms": 0.2,
+      "v6_faster_pct": 40.8
+    },
+    "ca-tunnel": {
+      "dual_stack_hosts": 320243,
+      "median_v6_minus_v4_connect_ms": 1.5,
+      "v6_faster_pct": 21.7
+    },
+    "sgp1": {
+      "dual_stack_hosts": 318903,
+      "median_v6_minus_v4_connect_ms": 0.6,
+      "v6_faster_pct": 37.1
+    }
+  }
+}

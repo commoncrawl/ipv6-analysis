@@ -1,0 +1,19 @@
+================================================================
+Overlap check: runA-100k vs runB-1m (rank <= 100,000)
+================================================================
+  runA-100k hosts:      100,000
+  runB-1m hosts:      100,000
+  Intersection:    43,976  (44.0% of smaller run)
+
+  Hosts matched by hostname; comparison covers the
+  intersection only.
+  NOTE: Run A ams3 vantage was single-pass; see dataset docs. Host lists differ between runs (Mar CC list vs Apr-Jun ranks).
+
+  category                         runA-100k       runB-1m     delta
+  ------------------------------------------------------------------
+  AAAA anywhere                       20,481        20,524       +43
+  reachable from all                  19,334        19,356       +22
+  partially reachable                    291           284        -7
+  broken v6 everywhere                   445           460       +15
+  dead (v4 too)                          411           424       +13
+  geo-DNS divergent                    7,215         7,224        +9
