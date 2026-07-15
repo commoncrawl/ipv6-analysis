@@ -905,6 +905,8 @@ html { scroll-behavior: smooth; }
         <strong>Figure 3.</strong> Per-vantage reachability for hosts selected in the table above.
         Vantage point positions are geographic; the central host circle is schematic, since the
         hosts themselves (in particular anycast CDN edges) have no single meaningful location.
+        The two California vantages are drawn displaced for legibility, with leader lines marking
+        their true position.
         Click a host in the table to see its five routes; Ctrl/Cmd-click adds further hosts to the
         selection, shading each vantage by how many of the selected hosts it reaches over IPv6.
         Basemap: Natural Earth (public domain).
@@ -1051,13 +1053,6 @@ html { scroll-behavior: smooth; }
       the same streaming method as March, and frozen for reuse in October.
     </p>
 
-    <h3>Privacy</h3>
-    <p>
-      Published outputs contain no probe source addresses and no internal machine identifiers;
-      vantage points are identified only by the public labels and locations above. Public resolver
-      constants (Google Public DNS) are stated as such.
-    </p>
-
     <h3>Limitations</h3>
     <p>
       The limitations of the March study carry over: harmonic centrality measures link-graph
@@ -1200,13 +1195,19 @@ document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
 
 // ---- route map ----
 // Order matches the bitmasks in TOP1000 (m = IPv6 reachable, w = IPv4 reachable).
+// x,y are true geographic positions; dx,dy displace the drawn dot for
+// legibility (the two California vantages are ~40 km apart, i.e. sub-pixel
+// at this scale), with a leader line drawn back to the true position.
 const VANTAGES = [
   { id: 'ams3',      x: 513.6, y:  87.9, lx:   9, ly:  -7, anchor: 'start' },
-  { id: 'sfo3',      x: 159.9, y: 128.4, lx: -10, ly:  -9, anchor: 'end'   },
+  { id: 'sfo3',      x: 159.9, y: 128.4, lx: -10, ly:  -9, anchor: 'end', dx: -14, dy: -12 },
   { id: 'nyc3',      x: 294.4, y: 120.2, lx:   9, ly:  -7, anchor: 'start' },
-  { id: 'ca-tunnel', x: 161.2, y: 129.6, lx: -10, ly:  18, anchor: 'end'   },
+  { id: 'ca-tunnel', x: 161.2, y: 129.6, lx: -10, ly:  14, anchor: 'end', dx: -16, dy: 20 },
   { id: 'sgp1',      x: 788.5, y: 229.7, lx:   9, ly:  16, anchor: 'start' },
 ];
+function vpos(v) {
+  return { x: v.x + (v.dx || 0), y: v.y + (v.dy || 0) };
+}
 const HOST_POS = { x: 470, y: 165 };
 const C_OK = '#2b674f', C_BROKEN = '#8a2b2b', C_DEAD = '#64748b', C_IDLE = '#2e5f8a';
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -1241,12 +1242,13 @@ function renderMap() {
   // routes (single selection only)
   if (single) {
     VANTAGES.forEach((v, i) => {
+      const p = vpos(v);
       const st = routeState(single, i);
       const col = st === 'ok' ? C_OK : st === 'broken' ? C_BROKEN : C_DEAD;
-      const mx = (v.x + HOST_POS.x) / 2;
-      const my = Math.min(v.y, HOST_POS.y) - 55;
+      const mx = (p.x + HOST_POS.x) / 2;
+      const my = Math.min(p.y, HOST_POS.y) - 55;
       lines.appendChild(el('path', {
-        d: `M${v.x} ${v.y}Q${mx} ${my} ${HOST_POS.x} ${HOST_POS.y}`,
+        d: `M${p.x} ${p.y}Q${mx} ${my} ${HOST_POS.x} ${HOST_POS.y}`,
         fill: 'none', stroke: col, 'stroke-width': 2.5,
         'stroke-dasharray': st === 'dead' ? '6 5' : 'none',
         opacity: 0.9,
@@ -1265,14 +1267,22 @@ function renderMap() {
       col = lerpColor(k / sel.length);
       sub = k + '/' + sel.length;
     }
-    const dot = el('circle', { cx: v.x, cy: v.y, r: 5.5, fill: col, stroke: '#fff', 'stroke-width': 1.5 });
+    const p = vpos(v);
+    if (v.dx || v.dy) {
+      dots.appendChild(el('line', {
+        x1: v.x, y1: v.y, x2: p.x, y2: p.y,
+        stroke: '#94a3b8', 'stroke-width': 1,
+      }));
+      dots.appendChild(el('circle', { cx: v.x, cy: v.y, r: 1.5, fill: '#94a3b8' }));
+    }
+    const dot = el('circle', { cx: p.x, cy: p.y, r: 5.5, fill: col, stroke: '#fff', 'stroke-width': 1.5 });
     let tip = v.id;
     if (single) tip += ': ' + ({ ok: 'IPv6 reachable', broken: 'IPv6 fails, IPv4 works', dead: 'IPv6 and IPv4 both fail' })[routeState(single, i)];
     else if (sub) tip += ': reaches ' + sub + ' of selected hosts over IPv6';
     dot.appendChild(el('title', {}, tip));
     dots.appendChild(dot);
     dots.appendChild(el('text', {
-      x: v.x + v.lx, y: v.y + v.ly, class: 'map-vlabel', 'text-anchor': v.anchor,
+      x: p.x + v.lx, y: p.y + v.ly, class: 'map-vlabel', 'text-anchor': v.anchor,
     }, v.id + (sub ? '  ' + sub : '')));
   });
 
