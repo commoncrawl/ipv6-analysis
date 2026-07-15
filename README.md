@@ -18,7 +18,7 @@ Hosts are ranked by harmonic centrality from the Common Crawl Web Graph release 
 1. **DNS AAAA lookup** — `dig +short AAAA` to check for published IPv6 records.
 2. **IPv6 reachability probe** — `curl -6 --head` over HTTPS with a 10-second timeout, following up to three redirects. Any HTTP response (including 4xx/5xx) counts as reachable.
 
-Probes were issued from a host with native IPv6 connectivity in northwestern ca-tunnel County, California. DNS lookups ran at up to 100 concurrent tasks; curl probes at up to 50.
+Probes were issued from a host with native IPv6 connectivity in northwestern Santa Clara County, California. DNS lookups ran at up to 100 concurrent tasks; curl probes at up to 50.
 
 ## Files
 
