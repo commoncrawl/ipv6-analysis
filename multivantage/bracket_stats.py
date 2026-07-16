@@ -36,7 +36,7 @@ def main() -> None:
 
     stats = [
         {"label": lab, "lo": lo, "hi": hi, "total": 0,
-         "aaaa": 0, "reachable_all": 0, "partial": 0}
+         "aaaa": 0, "aaaa_all": 0, "reachable_all": 0, "partial": 0}
         for lo, hi, lab in BRACKETS
     ]
 
@@ -50,6 +50,8 @@ def main() -> None:
                     nv = rec["vantage_count"]
                     if rec["aaaa_vantages"] >= 1:
                         s["aaaa"] += 1
+                    if rec["aaaa_vantages"] == nv:
+                        s["aaaa_all"] += 1
                     r = rec["v6_reachable_vantages"]
                     if r == nv:
                         s["reachable_all"] += 1
@@ -60,6 +62,10 @@ def main() -> None:
     for s in stats:
         s["pct"] = round(100.0 * s["reachable_all"] / s["total"], 1) if s["total"] else 0.0
         s["aaaa_pct"] = round(100.0 * s["aaaa"] / s["total"], 1) if s["total"] else 0.0
+        # any:all ratios across vantage points
+        s["aaaa_ratio"] = round(s["aaaa"] / s["aaaa_all"], 3) if s["aaaa_all"] else None
+        reach_any = s["reachable_all"] + s["partial"]
+        s["reach_ratio"] = round(reach_any / s["reachable_all"], 3) if s["reachable_all"] else None
         del s["lo"], s["hi"]
 
     json.dump(stats, sys.stdout, ensure_ascii=True)
