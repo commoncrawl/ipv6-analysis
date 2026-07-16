@@ -565,6 +565,10 @@ td.host { word-break: break-all; }
 @media (min-width: 1100px) { #gapChart-wrap { height: 310px; } }
 @media (min-width: 1400px) { #gapChart-wrap { height: 340px; } }
 @media (max-width: 640px)  { #gapChart-wrap { height: 230px; } }
+#tldChart-wrap { height: 320px; }
+@media (min-width: 1100px) { #tldChart-wrap { height: 360px; } }
+@media (min-width: 1400px) { #tldChart-wrap { height: 400px; } }
+@media (max-width: 640px)  { #tldChart-wrap { height: 260px; } }
 .table-scroll {
   border: 1px solid var(--border2);
   border-radius: 8px;
@@ -703,7 +707,7 @@ html { scroll-behavior: smooth; }
       the answer depends on where you look from. For 98.4% of hosts with a AAAA record anywhere,
       it does not: the five vantages agree unanimously (reachable from all five, or from none).
       The remaining 1.5% of AAAA hosts, the partially reachable, are examined in
-      <a href="#disagreement">section 4</a>.
+      <a href="#disagreement">section 5</a>.
     </p>
   </section>
 
@@ -754,7 +758,41 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="agreement"><a class="hanchor" href="#agreement">3&ensp; Vantage Agreement</a></h2>
+    <h2 id="tld"><a class="hanchor" href="#tld">3&ensp; Adoption by Top-Level Domain</a></h2>
+    <p>
+      Splitting the million hosts by their final DNS label separates operational cultures in a way
+      rank brackets cannot. Among the twenty most common TLDs, <code>.io</code> is the outlier:
+      79.1% of its 37,837 hosts are reachable over IPv6 from all five vantages, two and a half
+      times the population average, consistent with its developer-heavy population hosted on
+      CDN-fronted platforms that enable IPv6 by default. The newer Google-operated registries
+      follow the same pattern (<code>.dev</code> 50.3%, <code>.app</code> 38.6%), and
+      <code>.nl</code> leads the country codes at 42.6%. At the other end sit <code>.jp</code>
+      (13.9%) and <code>.ru</code> (10.0%).
+    </p>
+
+    <figure>
+      <div id="tldChart-wrap" class="chart-wrap"><canvas id="tldChart"></canvas></div>
+      <figcaption>
+        <strong>Figure 3.</strong> AAAA presence (any vantage) and consensus IPv6 reachability
+        (all five vantages) for the twenty most common top-level domains in the top 1,000,000
+        hosts, ordered by host count. Hosts are assigned to a TLD by their final DNS label, so
+        <code>.co.uk</code> counts under <code>uk</code>.
+      </figcaption>
+    </figure>
+
+    <p>
+      Where the two bars diverge widely, published AAAA records are not being honoured, and the
+      per-vantage data says why. For <code>.ru</code>, 488 of its 1,947 AAAA-publishing hosts
+      (25%) were unreachable over IPv6 from every vantage while remaining alive on IPv4, nine
+      times the population-wide broken-v6 rate of 2.8%; <code>.in</code> shows the same pattern
+      at 14%. Vantage-dependent partial reachability plays almost no role in these gaps (at most
+      56 hosts per TLD); the rest is hosts that were down on both protocols during the window,
+      a form of list rot concentrated in <code>.fr</code> and <code>.in</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="agreement"><a class="hanchor" href="#agreement">4&ensp; Vantage Agreement</a></h2>
     <p>
       The headline result of adding four vantage points is how little the headlines move. Aggregate
       AAAA presence spans 34.3&ndash;34.7% across the five vantages and aggregate reachability spans
@@ -805,7 +843,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="disagreement"><a class="hanchor" href="#disagreement">4&ensp; Where Vantages Disagree</a></h2>
+    <h2 id="disagreement"><a class="hanchor" href="#disagreement">5&ensp; Where Vantages Disagree</a></h2>
     <p>
       5,530 hosts (1.5% of hosts with AAAA records anywhere) were reachable over IPv6 from some
       vantages but not others. These partial hosts are the clearest payoff of a multi-vantage
@@ -832,7 +870,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="geo-dns"><a class="hanchor" href="#geo-dns">5&ensp; Geo-DNS Divergence</a></h2>
+    <h2 id="geo-dns"><a class="hanchor" href="#geo-dns">6&ensp; Geo-DNS Divergence</a></h2>
     <p>
       Reachability is only one axis of vantage disagreement; the answers DNS gives are another.
       Of the 339,041 hosts where all five vantages observed AAAA records, 112,248 (33.1%)
@@ -853,7 +891,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="hosts"><a class="hanchor" href="#hosts">6&ensp; Top 100,000 Hosts</a></h2>
+    <h2 id="hosts"><a class="hanchor" href="#hosts">7&ensp; Top 100,000 Hosts</a></h2>
     <p>
       The table below covers the top 100,000 hosts of the July 2026 list with their consensus
       IPv6 status across the five vantages, and the number of distinct AAAA record sets observed
@@ -902,7 +940,7 @@ html { scroll-behavior: smooth; }
         <span><span class="leg-line leg-dead"></span>IPv6 and IPv4 both fail</span>
       </div>
       <figcaption>
-        <strong>Figure 3.</strong> Per-vantage reachability for hosts selected in the table above.
+        <strong>Figure 4.</strong> Per-vantage reachability for hosts selected in the table above.
         Vantage point positions are geographic; the central host circle is schematic, since the
         hosts themselves (in particular anycast CDN edges) have no single meaningful location.
         The two California vantages are drawn displaced for legibility, with leader lines marking
@@ -915,7 +953,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="delta"><a class="hanchor" href="#delta">7&ensp; Change Since March</a></h2>
+    <h2 id="delta"><a class="hanchor" href="#delta">8&ensp; Change Since March</a></h2>
     <p>
       The California tunnel vantage re-probed the exact host list from the March study, giving a
       controlled four-month delta from the same coign of vantage. Of the 100,000 hosts, 2,054
@@ -930,7 +968,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="stability"><a class="hanchor" href="#stability">8&ensp; Rank Stability</a></h2>
+    <h2 id="stability"><a class="hanchor" href="#stability">9&ensp; Rank Stability</a></h2>
     <p>
       A finding about the ranking rather than about IPv6: only 44% of the hosts in the March
       top 100,000 remain in the top 100,000 of the apr-may-jun Web Graph release, computed with the
@@ -950,7 +988,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="skew"><a class="hanchor" href="#skew">9&ensp; Temporal Skew</a></h2>
+    <h2 id="skew"><a class="hanchor" href="#skew">10&ensp; Temporal Skew</a></h2>
     <p>
       The five vantages did not observe each host simultaneously, and honest interpretation of
       inter-vantage disagreement has to account for that. Observation windows for the 1M run ranged
@@ -974,13 +1012,13 @@ html { scroll-behavior: smooth; }
       population (13.3 h): if skew were manufacturing partials, they would skew wider, not
       narrower. Second, the 100k run used synchronised launches across all five vantages, and on
       the 43,976 hosts common to both runs every consensus category agrees within a fraction of a
-      percent (section 8). Skew widens the error bars on any single host's story; it does not move
+      percent (section 9). Skew widens the error bars on any single host's story; it does not move
       the aggregates.
     </p>
   </section>
 
   <section>
-    <h2 id="downloads"><a class="hanchor" href="#downloads">10&ensp; Data Downloads</a></h2>
+    <h2 id="downloads"><a class="hanchor" href="#downloads">11&ensp; Data Downloads</a></h2>
     <p>
       The complete merged dataset is published alongside this report. Vantage machine identifiers
       have been replaced with the public labels used throughout this page; no addresses or
@@ -1008,7 +1046,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section>
-    <h2 id="methodology"><a class="hanchor" href="#methodology">11&ensp; Methodology</a></h2>
+    <h2 id="methodology"><a class="hanchor" href="#methodology">12&ensp; Methodology</a></h2>
 
     <h3>Vantage points</h3>
     <div class="table-scroll"><table class="data-table">
@@ -1027,7 +1065,7 @@ html { scroll-behavior: smooth; }
       Electric 6in4 tunnel. The tunnel vantage doubles as a continuity control against March and as
       a check that tunnelled and native IPv6 see the same web: on aggregate reachability they agree
       to within 0.1&ndash;0.2 points. DNS at the DigitalOcean vantages used the provider's regional
-      resolvers; the tunnel vantage used Google Public DNS (see the caveat in section 5).
+      resolvers; the tunnel vantage used Google Public DNS (see the caveat in section 6).
     </p>
 
     <h3>Probing</h3>
@@ -1037,7 +1075,7 @@ html { scroll-behavior: smooth; }
       with AAAA records, any HTTP response counting as reachable. This campaign adds an IPv4
       control probe (<code>curl -4</code>) per host per vantage, which is what allows unreachable
       hosts to be split into "broken IPv6" (IPv4 alive) and "dead" (both protocols down), and
-      network-level blocking to be distinguished from IPv6 faults (section 4).
+      network-level blocking to be distinguished from IPv6 faults (section 5).
     </p>
     <p>
       Each vantage ran two complete passes, and hosts whose reachability flipped between passes
@@ -1057,9 +1095,9 @@ html { scroll-behavior: smooth; }
     <p>
       The limitations of the March study carry over: harmonic centrality measures link-graph
       importance rather than traffic, and the measurement does not distinguish native IPv6 from
-      CDN-mediated IPv6. New to this study, temporal skew between vantages (section 9) means
+      CDN-mediated IPv6. New to this study, temporal skew between vantages (section 10) means
       per-host inter-vantage comparisons are not simultaneous, and the geo-DNS divergence count
-      excludes hosts visible to only some vantages by construction (section 5). Five vantages on
+      excludes hosts visible to only some vantages by construction (section 6). Five vantages on
       three continents is a longer baseline than one, but it is not a global view: none of the
       vantages sits in Africa, South America, or mainland China, and reachability from those
       networks may differ.
@@ -1163,7 +1201,7 @@ function render() {
   document.getElementById('tableBody').innerHTML = rows.map(r => `
     <tr data-r="${r.r}"${selected.has(r.r) ? ' class="selected"' : ''}>
       <td class="rank">${r.r}</td>
-      <td class="host"><a href="https://${r.h}" target="_blank" rel="noopener noreferrer">${r.h}</a></td>
+      <td class="host">${r.h}</td>
       <td>${badge(r)}</td>
       <td>${r.d != null ? r.d : '&mdash;'}</td>
     </tr>`).join('');
@@ -1320,7 +1358,6 @@ function updateClearBtn() {
 }
 
 document.getElementById('tableBody').addEventListener('click', e => {
-  if (e.target.closest('a')) return;          // let host links work normally
   const tr = e.target.closest('tr[data-r]');
   if (!tr) return;
   const r = Number(tr.dataset.r);
@@ -1426,6 +1463,91 @@ new Chart(ctx, {
       y: {
         min: 0, max: 80,
         grid: { color: '#e2e8f0', drawBorder: false },
+        border: { display: false },
+        ticks: {
+          color: '#64748b',
+          font: { family: 'IBM Plex Mono', size: 11 },
+          callback: v => v + '%'
+        },
+      }
+    }
+  }
+});
+
+// Figure 3: adoption by TLD (grouped bars)
+const TLDS = [{"tld": "com", "total": 401485, "aaaa": 136854, "reachable_all": 125036, "pct": 31.1, "aaaa_pct": 34.1}, {"tld": "org", "total": 141327, "aaaa": 47543, "reachable_all": 43184, "pct": 30.6, "aaaa_pct": 33.6}, {"tld": "uk", "total": 41603, "aaaa": 13306, "reachable_all": 11447, "pct": 27.5, "aaaa_pct": 32.0}, {"tld": "io", "total": 37837, "aaaa": 30176, "reachable_all": 29939, "pct": 79.1, "aaaa_pct": 79.8}, {"tld": "net", "total": 37373, "aaaa": 13909, "reachable_all": 12341, "pct": 33.0, "aaaa_pct": 37.2}, {"tld": "edu", "total": 28434, "aaaa": 6090, "reachable_all": 4994, "pct": 17.6, "aaaa_pct": 21.4}, {"tld": "de", "total": 20695, "aaaa": 7498, "reachable_all": 6059, "pct": 29.3, "aaaa_pct": 36.2}, {"tld": "au", "total": 16144, "aaaa": 4545, "reachable_all": 3921, "pct": 24.3, "aaaa_pct": 28.2}, {"tld": "ca", "total": 14189, "aaaa": 3630, "reachable_all": 3258, "pct": 23.0, "aaaa_pct": 25.6}, {"tld": "gov", "total": 11041, "aaaa": 4497, "reachable_all": 3911, "pct": 35.4, "aaaa_pct": 40.7}, {"tld": "jp", "total": 9775, "aaaa": 1540, "reachable_all": 1358, "pct": 13.9, "aaaa_pct": 15.8}, {"tld": "app", "total": 9065, "aaaa": 3553, "reachable_all": 3499, "pct": 38.6, "aaaa_pct": 39.2}, {"tld": "dev", "total": 9039, "aaaa": 4693, "reachable_all": 4551, "pct": 50.3, "aaaa_pct": 51.9}, {"tld": "fr", "total": 9000, "aaaa": 3036, "reachable_all": 2098, "pct": 23.3, "aaaa_pct": 33.7}, {"tld": "it", "total": 8682, "aaaa": 2229, "reachable_all": 1945, "pct": 22.4, "aaaa_pct": 25.7}, {"tld": "in", "total": 8535, "aaaa": 3731, "reachable_all": 1818, "pct": 21.3, "aaaa_pct": 43.7}, {"tld": "ru", "total": 8136, "aaaa": 1947, "reachable_all": 816, "pct": 10.0, "aaaa_pct": 23.9}, {"tld": "info", "total": 6783, "aaaa": 2376, "reachable_all": 2052, "pct": 30.3, "aaaa_pct": 35.0}, {"tld": "br", "total": 6610, "aaaa": 2566, "reachable_all": 2003, "pct": 30.3, "aaaa_pct": 38.8}, {"tld": "nl", "total": 6543, "aaaa": 3362, "reachable_all": 2788, "pct": 42.6, "aaaa_pct": 51.4}];
+const tldCtx = document.getElementById('tldChart').getContext('2d');
+new Chart(tldCtx, {
+  type: 'bar',
+  data: {
+    labels: TLDS.map(t => '.' + t.tld),
+    datasets: [
+      {
+        label: 'AAAA record at any vantage',
+        data: TLDS.map(t => t.aaaa_pct),
+        backgroundColor: '#a3aed0',
+        hoverBackgroundColor: '#8b98c2',
+        borderRadius: 2,
+        borderSkipped: false,
+      },
+      {
+        label: 'Reachable from all five vantages',
+        data: TLDS.map(t => t.pct),
+        backgroundColor: '#37618a',
+        hoverBackgroundColor: '#2a4d72',
+        borderRadius: 2,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        align: 'end',
+        labels: {
+          usePointStyle: true,
+          pointStyle: 'rectRounded',
+          boxWidth: 10,
+          boxHeight: 10,
+          padding: 14,
+          color: '#475569',
+          font: { family: 'Libre Franklin', size: 11 }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          title: (c) => '.' + TLDS[c[0].dataIndex].tld + '  (' + TLDS[c[0].dataIndex].total.toLocaleString() + ' hosts)',
+          label: (c) => ` ${c.dataset.label}: ${c.parsed.y}%`
+        },
+        backgroundColor: '#fff',
+        borderColor: '#dde2e9',
+        borderWidth: 1,
+        titleColor: '#152a47',
+        bodyColor: '#64748b',
+        padding: 10,
+        titleFont: { family: 'Libre Franklin', weight: '600', size: 12 },
+        bodyFont: { family: 'IBM Plex Mono', size: 11 },
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: {
+          color: '#64748b',
+          font: { family: 'IBM Plex Mono', size: 11 },
+          maxRotation: 45,
+          minRotation: 0,
+        },
+        border: { color: '#e0e0e0' },
+      },
+      y: {
+        min: 0, max: 85,
+        grid: { color: '#e2e8f0' },
         border: { display: false },
         ticks: {
           color: '#64748b',

@@ -1031,7 +1031,7 @@ function render() {
   document.getElementById('tableBody').innerHTML = rows.map(r => `
     <tr>
       <td class="rank">${r.r}</td>
-      <td class="host"><a href="https://${r.h}" target="_blank" rel="noopener noreferrer">${r.h}</a></td>
+      <td class="host">${r.h}</td>
       <td>${badge(r)}</td>
     </tr>`).join('');
   document.getElementById('tableFooter').textContent =
