@@ -1208,7 +1208,7 @@ function render() {
   const total = HOSTS.length.toLocaleString();
   document.getElementById('tableFooter').textContent =
     matches.length > ROW_CAP
-      ? `Showing first ${ROW_CAP} of ${matches.length.toLocaleString()} matching hosts (${total} total) — refine your search`
+      ? `Showing first ${ROW_CAP} of ${matches.length.toLocaleString()} matching hosts (${total} total); refine your search`
       : `Showing ${matches.length.toLocaleString()} of ${total} hosts`;
 }
 
