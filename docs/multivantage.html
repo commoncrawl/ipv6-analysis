@@ -629,7 +629,28 @@ td.host { word-break: break-all; }
 h2 .hanchor { color: inherit; text-decoration: none; }
 h2 .hanchor:hover::after { content: "\00a0#"; color: var(--lighter); font-weight: 400; }
 html { scroll-behavior: smooth; }
+/* ---- embed modes (?embed=tld / ?embed=table) for iframe use ---- */
+html.embed body { background: #fff; }
+html.embed .cc-header-wrap, html.embed .header-rule, html.embed .title-block,
+html.embed .cc-footer { display: none !important; }
+html.embed article {
+  max-width: 100%; margin: 0; padding: 0 .75rem;
+  border: none; border-radius: 0;
+}
+html.embed section { margin: .75rem 0; }
+html.embed-tld article > section:not(#sec-tld) { display: none; }
+html.embed-tld #sec-tld > *:not(figure) { display: none; }
+html.embed-tld #sec-tld figure { margin: .5rem 0; }
+html.embed-table article > section:not(#sec-hosts) { display: none; }
+html.embed-table #sec-hosts > h2, html.embed-table #sec-hosts > p,
+html.embed-table #sec-hosts > figure { display: none; }
 </style>
+<script>
+(function () {
+  var m = /[?&]embed=(tld|table)(&|$)/.exec(location.search);
+  if (m) document.documentElement.className += ' embed embed-' + m[1];
+})();
+</script>
 </head>
 <body>
 
@@ -757,7 +778,7 @@ html { scroll-behavior: smooth; }
     </p>
   </section>
 
-  <section>
+  <section id="sec-tld">
     <h2 id="tld"><a class="hanchor" href="#tld">3&ensp; Adoption by Top-Level Domain</a></h2>
     <p>
       Splitting the million hosts by their final DNS label separates operational cultures in a way
@@ -890,7 +911,7 @@ html { scroll-behavior: smooth; }
     </div>
   </section>
 
-  <section>
+  <section id="sec-hosts">
     <h2 id="hosts"><a class="hanchor" href="#hosts">7&ensp; Top 100,000 Hosts</a></h2>
     <p>
       The table below covers the top 100,000 hosts of the July 2026 list with their consensus
@@ -1156,6 +1177,8 @@ let pendingSel = [];
 
 function updateURL() {
   const p = new URLSearchParams();
+  const embed = new URLSearchParams(location.search).get('embed');
+  if (embed) p.set('embed', embed);
   if (currentSearch) p.set('q', currentSearch);
   if (currentFilter !== 'all') p.set('f', currentFilter);
   const sel = [...selected.keys()].concat(pendingSel);
