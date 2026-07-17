@@ -640,13 +640,13 @@ html.embed article {
   max-width: 100%; margin: 0; padding: 0 .75rem;
   border: none; border-radius: 0;
 }
-html.embed section { margin: .75rem 0; }
+html.embed section { margin: 0; }
 html.embed-tld article > section:not(#sec-tld) { display: none; }
 html.embed-tld #sec-tld > *:not(figure) { display: none; }
-html.embed-tld #sec-tld figure { margin: .5rem 0; }
+html.embed-tld #sec-tld figure { margin: 0; }
 html.embed-table article > section:not(#sec-hosts) { display: none; }
 html.embed-table #sec-hosts > h2, html.embed-table #sec-hosts > p { display: none; }
-html.embed-table #sec-hosts figure { margin: .5rem 0; }
+html.embed-table #sec-hosts figure { margin: .75rem 0 0; }
 </style>
 <script>
 (function () {
@@ -1792,7 +1792,10 @@ new Chart(gapCtx, {
   var last = 0, queued = false;
   function post() {
     queued = false;
-    var h = Math.ceil(document.documentElement.scrollHeight);
+    /* body's border-box height tracks the real content; scrollHeight is
+       floored at the viewport height, which would stop the iframe shrinking */
+    var h = Math.ceil(document.body.getBoundingClientRect().height) ||
+            Math.ceil(document.documentElement.scrollHeight);
     if (h !== last) {
       last = h;
       window.parent.postMessage({ type: 'cc-embed-height', embed: mode, height: h }, '*');
