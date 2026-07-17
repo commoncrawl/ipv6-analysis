@@ -1783,5 +1783,32 @@ new Chart(gapCtx, {
   }
 });
 </script>
+<script>
+/* ---- embed auto-height: report content height to the parent page so the
+   host iframe can resize itself and avoid internal scrollbars ---- */
+(function () {
+  if (!/(^| )embed( |$)/.test(document.documentElement.className)) return;
+  var mode = (/[?&]embed=(tld|table)(&|$)/.exec(location.search) || [])[1] || '';
+  var last = 0, queued = false;
+  function post() {
+    queued = false;
+    var h = Math.ceil(document.documentElement.scrollHeight);
+    if (h !== last) {
+      last = h;
+      window.parent.postMessage({ type: 'cc-embed-height', embed: mode, height: h }, '*');
+    }
+  }
+  function schedule() {
+    if (!queued) { queued = true; requestAnimationFrame(post); }
+  }
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(schedule).observe(document.body);
+  }
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  document.addEventListener('DOMContentLoaded', schedule);
+  schedule();
+})();
+</script>
 </body>
 </html>
