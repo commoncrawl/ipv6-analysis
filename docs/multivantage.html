@@ -645,8 +645,8 @@ html.embed-tld article > section:not(#sec-tld) { display: none; }
 html.embed-tld #sec-tld > *:not(figure) { display: none; }
 html.embed-tld #sec-tld figure { margin: .5rem 0; }
 html.embed-table article > section:not(#sec-hosts) { display: none; }
-html.embed-table #sec-hosts > h2, html.embed-table #sec-hosts > p,
-html.embed-table #sec-hosts > figure { display: none; }
+html.embed-table #sec-hosts > h2, html.embed-table #sec-hosts > p { display: none; }
+html.embed-table #sec-hosts figure { margin: .5rem 0; }
 </style>
 <script>
 (function () {
@@ -1004,8 +1004,8 @@ html.embed-table #sec-hosts > figure { display: none; }
       gained AAAA records and 1,004 lost them (net +1,050, taking AAAA presence from 38,076 hosts,
       38.1%, to 39,126, 39.1%); 2,147 gained IPv6 reachability and 994 lost it (net +1,153, taking
       reachability from 36,864 hosts, 36.9%, to 38,017, 38.0%). IPv6 adoption in this population is
-      growing at roughly a percentage point per four months, and the churn beneath the net figure
-      runs about three times its size in both directions. Notable arrivals include
+      growing at roughly a percentage point per four months, and the net figures hide churn:
+      combined gains and losses run nearly three times the net change in both metrics. Notable arrivals include
       <code>www.ft.com</code> and <code>www.bleepingcomputer.com</code>; departures include
       <code>www.engadget.com</code> and <code>www.php.net</code>.
     </p>
